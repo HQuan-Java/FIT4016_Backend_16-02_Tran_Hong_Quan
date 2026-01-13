@@ -5,25 +5,28 @@ namespace SchoolManagement.Models
 {
     public class Student
     {
-        public int Id { get; set; } // Primary Key, Auto Increment
+        public int Id { get; set; }
 
-        [Required]
-        public int SchoolId { get; set; } // Foreign Key
+        [Required(ErrorMessage = "School is required")]
+        public int SchoolId { get; set; }
 
         [ForeignKey("SchoolId")]
-        public School School { get; set; }
+        public School School { get; set; } = null!;
 
-        [Required]
-        public string FullName { get; set; } // Not Null
+        [Required(ErrorMessage = "Full name is required")]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "Full name must be between 2 and 100 characters")]
+        public string FullName { get; set; } = string.Empty;
 
-        [Required]
-        public string StudentId { get; set; } // Not Null, Unique
+        [Required(ErrorMessage = "Student ID is required")]
+        [StringLength(20, MinimumLength = 5, ErrorMessage = "Student ID must be between 5 and 20 characters")]
+        public string StudentId { get; set; } = string.Empty;
 
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; } // Not Null, Unique
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email format")]
+        public string Email { get; set; } = string.Empty;
 
-        public string? Phone { get; set; } // Nullable
+        [RegularExpression(@"^\d{10,11}$", ErrorMessage = "Phone number must be 10 or 11 digits")]
+        public string? Phone { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; set; }

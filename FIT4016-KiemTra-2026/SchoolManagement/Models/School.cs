@@ -8,18 +8,18 @@ namespace SchoolManagement.Models
 
         [Required]
         [StringLength(100)]
-        public string Name { get; set; } // Not Null, Unique (Fluent API)
+        public string Name { get; set; } = string.Empty;
 
         [Required]
-        public string Principal { get; set; } // Not Null
+        public string Principal { get; set; } = string.Empty;
 
         [Required]
-        public string Address { get; set; } // Not Null
+        public string Address { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; set; }
 
         // 1 School - Many Students
-        public ICollection<Student> Students { get; set; }
+        public ICollection<Student> Students { get; set; } = new List<Student>();
     }
 }
