@@ -118,7 +118,13 @@ namespace SchoolManagement.Controllers
 
             ViewBag.Schools = new SelectList(_context.Schools, "Id", "Name", student.SchoolId);
 
-            // Check Email duplicate (except itself)
+            // Check duplicate StudentId (ignore current student)
+            if (_context.Students.Any(s => s.StudentId == student.StudentId && s.Id != student.Id))
+            {
+                ModelState.AddModelError("StudentId", "Student ID already exists");
+            }
+
+            // Check duplicate Email
             if (_context.Students.Any(s => s.Email == student.Email && s.Id != student.Id))
             {
                 ModelState.AddModelError("Email", "Email already exists");
@@ -134,6 +140,7 @@ namespace SchoolManagement.Controllers
                 student.UpdatedAt = DateTime.Now;
                 _context.Update(student);
                 await _context.SaveChangesAsync();
+
                 TempData["SuccessMessage"] = "Student updated successfully";
                 return RedirectToAction(nameof(Index));
             }
@@ -143,6 +150,7 @@ namespace SchoolManagement.Controllers
                 return View(student);
             }
         }
+
 
         // =========================
         // DELETE - GET (CONFIRM)
