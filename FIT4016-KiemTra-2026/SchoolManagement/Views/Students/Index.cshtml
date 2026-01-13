@@ -1,0 +1,48 @@
+@model IEnumerable<SchoolManagement.Models.Student>
+
+@{
+    ViewData["Title"] = "Student List";
+}
+
+<h2>Student List</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Student ID</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>School</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var student in Model)
+{
+        <tr>
+            <td>@student.FullName</td>
+            <td>@student.StudentId</td>
+            <td>@student.Email</td>
+            <td>@student.Phone</td>
+            <td>@student.School?.Name</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@student.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@student.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<!-- Pagination -->
+<nav>
+    <ul class="pagination">
+@for (int i = 1; i <= ViewBag.TotalPages; i++)
+{
+        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+        </li>
+}
+    </ul>
+</nav>
