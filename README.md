@@ -8,7 +8,7 @@
 
 ---
 
-## 📌 MÔ TẢ DỰ ÁN (TIẾNG VIỆT)
+## 📌 MÔ TẢ DỰ ÁN 
 
 Dự án **School Management System** được xây dựng bằng **ASP.NET Core MVC** và **Entity Framework Core**.
 
